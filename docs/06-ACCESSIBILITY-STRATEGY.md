@@ -1,7 +1,7 @@
 # ICJIA Public Website — Accessibility Strategy
 
 **Status:** DRAFT v0.1
-**Companion to:** `MASTER-DESIGN-PLAN.md`, `TEST-PLAN.md` (forthcoming)
+**Companion to:** `02-MASTER-DESIGN-PLAN.md`, `TEST-PLAN.md` (forthcoming)
 **Scope:** Accessibility targets, architectural approach, automated and manual testing gates, CMS-authored content handling
 **Last updated:** 2026-04-23
 
@@ -30,7 +30,7 @@ The prior codebase's claim of axe-core "57/57 clean" is approximately 30% of WCA
 
 **Use components that emit correct markup.** Nuxt UI 4 / Reka UI primitives have been audited upstream. Dialogs trap focus. Popovers announce. Buttons are actual `<button>` elements, not clickable `<div>`s. Form labels are associated programmatically. If we find ourselves writing a runtime fix for a Nuxt UI component, we file an upstream issue instead of patching in userland.
 
-**Accessibility belongs in the design system, not layered on top.** Focus rings, color contrast, touch-target sizes, and motion sensitivity are token-level decisions in `DESIGN-SYSTEM.md`. Any component that doesn't meet those tokens isn't built correctly; the fix is at the component level, not a post-render wrapper.
+**Accessibility belongs in the design system, not layered on top.** Focus rings, color contrast, touch-target sizes, and motion sensitivity are token-level decisions in `05-DESIGN-SYSTEM.md`. Any component that doesn't meet those tokens isn't built correctly; the fix is at the component level, not a post-render wrapper.
 
 **CMS-authored content gets validated at build time.** Strapi authors can produce heading-order issues, tables without proper headers, and missing alt text. The solution is threefold:
 
@@ -50,7 +50,7 @@ These run in CI on every pull request and every production deploy. Failures bloc
 - **Lighthouse CI** with per-page accessibility score budget of 100.
 - **Link checker** catches broken internal links.
 - **HTML validator** catches malformed output (unclosed tags, invalid nesting).
-- **CSS contrast linter** validates tokens-as-used against documented contrast floors (see `DESIGN-SYSTEM.md` Section 1.4).
+- **CSS contrast linter** validates tokens-as-used against documented contrast floors (see `05-DESIGN-SYSTEM.md` §1.4).
 - **Build-time content validators** (see Section 2 above) catch CMS content issues before publish.
 
 ---

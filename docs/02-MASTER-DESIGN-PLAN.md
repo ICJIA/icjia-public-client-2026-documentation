@@ -1,10 +1,10 @@
 # ICJIA Public Website — Master Design Plan
 
-**Status:** DRAFT v0.4
+**Status:** DRAFT v0.5
 **Target repo:** `icjia-public-nuxt` (new — separate from `icjia-public-client-2021`)
 **Author(s):** TBD
-**Last updated:** 2026-04-23 (v0.4: GraphQL reinstated as primary query layer; REST reserved for uploads/auth)
-**Companion documents:** `DESIGN-SYSTEM.md`, `ACCESSIBILITY-STRATEGY.md`, `OPEN-QUESTIONS.md`, `EXECUTIVE-SUMMARY.md`
+**Last updated:** 2026-04-23 (v0.5: planning set renumbered for reading order; Strapi upgrade and phased deliverable plans added as companions; Q3 resolved)
+**Companion documents:** `00-README.md`, `01-EXECUTIVE-SUMMARY.md`, `03-STRAPI-UPGRADE-PLAN.md`, `04-PHASED-DELIVERABLE-PLAN.md`, `05-DESIGN-SYSTEM.md`, `06-ACCESSIBILITY-STRATEGY.md`, `07-OPEN-QUESTIONS.md`
 **Supersedes (in part):** `docs/NUXT-ARCHITECTURE-RECOMMENDATIONS.md`, `docs/NUXT-REWRITE-PLAN.md` — see [Appendix B](#appendix-b-relationship-to-prior-documents)
 
 ---
@@ -15,10 +15,13 @@ This document is the orchestration point for the redesign and rebuild of the ICJ
 
 Companion documents cover the detail work:
 
-- **`DESIGN-SYSTEM.md`** — visual tokens, typography, geometry, motion, component mapping
-- **`ACCESSIBILITY-STRATEGY.md`** — a11y targets, automated/manual test gates, architectural approach
-- **`OPEN-QUESTIONS.md`** — living record of decisions still to make
-- **`PHASED-DELIVERABLE-PLAN.md`** (forthcoming) — per-phase task lists with exit criteria
+- **`00-README.md`** — planning-set index and reading paths by role
+- **`01-EXECUTIVE-SUMMARY.md`** — plain-language summary for non-technical leadership
+- **`03-STRAPI-UPGRADE-PLAN.md`** — parallel fresh Strapi 5 instance, phase S0–S9 (resolves Q3)
+- **`04-PHASED-DELIVERABLE-PLAN.md`** — per-phase task lists, entry/exit criteria, cross-track dependencies
+- **`05-DESIGN-SYSTEM.md`** — visual tokens, typography, geometry, motion, component mapping
+- **`06-ACCESSIBILITY-STRATEGY.md`** — a11y targets, automated/manual test gates, architectural approach
+- **`07-OPEN-QUESTIONS.md`** — living record of decisions still to make
 - **`TEST-PLAN.md`** (forthcoming) — test strategy, coverage, and procedures
 
 The prior rewrite planning in the existing repo (see Appendix B) did a lot of the structural thinking — component inventories, URL structures, Nuxt UI component mapping — and much of that work is preserved. What's new in this iteration: (a) a design-system-first approach rather than a Vuetify-to-Nuxt-UI port; (b) a firm commitment to static generation; (c) a reconciled content-source strategy across Strapi 5 and `@nuxt/content`; (d) first-class live preview for Strapi 5 authors; and (e) a dark-first visual language grounded in the approved mockup.
@@ -37,7 +40,7 @@ This supersedes the SSR approach specified in the prior rewrite plan. The ration
 
 ### 1.2 Content source (hybrid)
 
-**Strapi 5 is the CMS for editor-driven content. `@nuxt/content` is adopted for stable, code-adjacent content.** Strapi 5 is the committed target version; a future upgrade to Strapi 6 is anticipated but not in scope for v1. The new Nuxt app is written against Strapi 5 from day one — no Strapi 3 compatibility is carried forward. Query layer (GraphQL primary, REST for specific cases) is detailed in Section 4.3. The Strapi 3 → 5 upgrade is treated as a precondition for this project and is tracked separately (see `OPEN-QUESTIONS.md`).
+**Strapi 5 is the CMS for editor-driven content. `@nuxt/content` is adopted for stable, code-adjacent content.** Strapi 5 is the committed target version; a future upgrade to Strapi 6 is anticipated but not in scope for v1. The new Nuxt app is written against Strapi 5 from day one — no Strapi 3 compatibility is carried forward. Query layer (GraphQL primary, REST for specific cases) is detailed in Section 4.3. The Strapi 3 → 5 upgrade is the subject of `03-STRAPI-UPGRADE-PLAN.md`, which commits to a parallel fresh Strapi 5 instance rather than an in-place stepwise upgrade. Its phases run on a second track; the critical coupling is that Nuxt Phase 4 (content archetypes) gates on Strapi Phase S7 (Nuxt/v5 integration).
 
 Editor-driven content types on Strapi 5 support **live preview of unpublished drafts** rendered by the Nuxt app — see Sections 1.8 and 4.5.
 
@@ -112,11 +115,11 @@ These are not in scope for the initial redesign launch and should be tracked as 
 
 ## 2. Design system
 
-The design system — color tokens (dark and light themes), typography, geometry, elevation, motion, and component mapping — is documented in **`DESIGN-SYSTEM.md`**.
+The design system — color tokens (dark and light themes), typography, geometry, elevation, motion, and component mapping — is documented in **`05-DESIGN-SYSTEM.md`**.
 
 Summary: dark-first, editorial, deliberately angular. Zero border-radius on primary surfaces as a signature. Three-accent system (blue `#2f6bff`, emerald `#10b981`, amber `#f59e0b`). Inter + JetBrains Mono, no other fonts. Three card variants in the mockup collapse to one production default (`flat`), with `glass` reserved for overlays and `bordered` retired. Motion is short and functional; `prefers-reduced-motion` respected everywhere.
 
-The full token tables, contrast verification, Nuxt UI 4 theme config sketch, and component mapping reference live in `DESIGN-SYSTEM.md`. That document is expected to be the most-frequently-referenced file during implementation.
+The full token tables, contrast verification, Nuxt UI 4 theme config sketch, and component mapping reference live in `05-DESIGN-SYSTEM.md`. That document is expected to be the most-frequently-referenced file during implementation.
 
 ---
 
@@ -234,11 +237,11 @@ Authors editing in Strapi need to preview unpublished changes before publishing.
 
 ## 5. Accessibility strategy
 
-The accessibility approach is documented in **`ACCESSIBILITY-STRATEGY.md`**.
+The accessibility approach is documented in **`06-ACCESSIBILITY-STRATEGY.md`**.
 
 Summary: WCAG 2.1 AA as the baseline across the whole site, AAA for core reading paths (homepage, news detail, research article, grant detail, policy page). Accessibility is treated as an architectural property — built into the components (Nuxt UI 4 / Reka UI) and the design tokens, not patched in afterward. The prior codebase's 24 runtime DOM-fix functions are not ported; their role is replaced by (a) components that emit correct markup to begin with, and (b) build-time validators for CMS-authored content. Automated gates (axe-core, Lighthouse CI, HTML validator, link checker) run on every deploy. Manual gates (VoiceOver, NVDA, keyboard-only, 200% zoom, reduced-motion) run per sprint in both themes.
 
-The full test procedures live in `TEST-PLAN.md` (forthcoming); the strategic approach and start-of-project checklist live in `ACCESSIBILITY-STRATEGY.md`.
+The full test procedures live in `TEST-PLAN.md` (forthcoming); the strategic approach and start-of-project checklist live in `06-ACCESSIBILITY-STRATEGY.md`.
 
 ---
 
@@ -264,11 +267,15 @@ The new site goes to production when all of the following are true:
 
 DNS swap during a pre-announced low-traffic window. Old site remains at `legacy.icjia.illinois.gov` for one release cycle. `_redirects` entries cover any URL that changed. Rollback path is DNS-reverse within 15 minutes.
 
+### 6.4 Two cutovers, not one
+
+The Strapi upgrade cutover (Strapi Phase S9 in `03-STRAPI-UPGRADE-PLAN.md`) is sequenced with the frontend cutover (Nuxt Phase 8) but is a separate event — **the Strapi cutover happens first, not simultaneously**. At S9, the v5 Strapi instance becomes canonical; the v3 instance is frozen read-only. The existing Vue 2 production site continues to point at the (same, preserved) Strapi admin URL, which is now served by v5. After a few days of stable v5 operation, Phase 8 executes the DNS swap for the public site. This two-step cutover isolates the two risks: a Strapi regression surfaces before the public-site swap; a frontend regression surfaces with a known-stable backend behind it.
+
 ---
 
 ## 7. Phase outline
 
-This is the coarse outline. Each phase has its own detailed deliverable list in `PHASED-DELIVERABLE-PLAN.md`.
+This is the coarse outline for the Nuxt rebuild track. Each phase has its detailed entry/exit criteria, deliverables, dependencies, and risk flags in `04-PHASED-DELIVERABLE-PLAN.md`, which also documents the parallel Strapi upgrade track (phases S0–S9) and the cross-track gate between them.
 
 | Phase | Focus | Exit gate |
 |---|---|---|
@@ -283,6 +290,8 @@ This is the coarse outline. Each phase has its own detailed deliverable list in 
 | 8. Cutover | A/B traffic split, observe, swap DNS | Production |
 
 Phases 3–5 are the content-heavy work and will overlap in practice. Phase 1 ("design system") is the hinge — if it's half-done when we start building pages, every page rework cascades.
+
+**Cross-track gate:** Phase 4 cannot start until Strapi Phase S7 (Nuxt/v5 integration) is complete. Phases 0–3 can proceed against mock data and are not blocked by the Strapi track. See `04-PHASED-DELIVERABLE-PLAN.md` §3 for the full dependency diagram.
 
 ---
 
@@ -312,9 +321,9 @@ Qualitative criteria (review with stakeholders before cutover):
 
 ## Appendix A: Open questions
 
-Open questions are tracked in **`OPEN-QUESTIONS.md`** as a living document, updated as questions close. That file is the authoritative list; this appendix points to it rather than duplicating the content (which would otherwise drift out of sync).
+Open questions are tracked in **`07-OPEN-QUESTIONS.md`** as a living document, updated as questions close. That file is the authoritative list; this appendix points to it rather than duplicating the content (which would otherwise drift out of sync).
 
-Current categories: architectural decisions (search backend, Strapi upgrade timing, preview auth model), product decisions (carousel behavior, admin scope), and design-system decisions (exact primary shade, data-viz palette, icon library, toggle behavior).
+Q3 (Strapi 3 → 5 upgrade timing) now has a dedicated plan — see `03-STRAPI-UPGRADE-PLAN.md`. The remaining open questions span search backend, preview authentication model, form-submission runtime, admin scope, and several design-system decisions.
 
 ## Appendix B: Relationship to prior documents
 
@@ -324,7 +333,7 @@ Two documents in the existing `docs/` folder do much of the groundwork this plan
 
 **`NUXT-REWRITE-PLAN.md`** — the tactical breakdown. This plan adopts its URL structure (Section 3.2), its Vuetify → Nuxt UI component mapping (Section 2.6), and much of its phase structure (Section 7), but **disagrees on rendering mode** (this plan is SSG-first; the rewrite plan specified SSR) and on the hybrid content-source decision (this plan introduces `@nuxt/content` for stable content). The rewrite plan's 8-phase structure is reorganized in Section 7 here to be design-system-first rather than component-port-first.
 
-The detailed per-phase work in the rewrite plan (Phases 0–7 in that document) is not discarded; it's re-anchored to this plan's phase outline and expanded in `PHASED-DELIVERABLE-PLAN.md`.
+The detailed per-phase work in the rewrite plan (Phases 0–7 in that document) is not discarded; it's re-anchored to this plan's phase outline and expanded in `04-PHASED-DELIVERABLE-PLAN.md`.
 
 ## Appendix C: Glossary
 

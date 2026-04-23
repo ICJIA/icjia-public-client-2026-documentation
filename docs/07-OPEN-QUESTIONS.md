@@ -1,9 +1,9 @@
 # ICJIA Public Website — Open Questions
 
 **Status:** LIVING DOCUMENT
-**Companion to:** `MASTER-DESIGN-PLAN.md`, `DESIGN-SYSTEM.md`, `ACCESSIBILITY-STRATEGY.md`
+**Companion to:** `02-MASTER-DESIGN-PLAN.md`, `03-STRAPI-UPGRADE-PLAN.md`, `05-DESIGN-SYSTEM.md`, `06-ACCESSIBILITY-STRATEGY.md`
 **Purpose:** Track design and architectural questions that are deferred, their deadlines, and their resolutions
-**Last updated:** 2026-04-23
+**Last updated:** 2026-04-23 (Q3 resolved — see resolution paragraph; cross-references updated to numbered filenames)
 
 ---
 
@@ -40,13 +40,15 @@ The shell will be built i18n-ready — lang switcher in the nav, `hreflang` in `
 
 ### Q3: Strapi 3 → 5 upgrade timing
 
-**Status:** open, blocking Phase 4
-**Target phase:** must resolve before Phase 4 content rollout starts
+**Status:** planned (see `03-STRAPI-UPGRADE-PLAN.md`)
+**Target phase:** Strapi Phase S7 gates Nuxt Phase 4
 **Owner:** Whoever owns the Strapi backend
 
 The new Nuxt app targets Strapi 5's REST Document Service API. The existing production backend is Strapi 3. The upgrade has to precede (or at least reach API-stable status before) Phase 4. If the upgrade slips, the Nuxt frontend sits in Phases 1–3 (design system, shell, homepage) and waits. Stubbed mock data can unblock Phase 3 in a pinch but not Phase 4 and beyond.
 
 **Coordination needed:** confirm with backend owner that Strapi 5 upgrade is planned, scoped, and timelined. If not, escalate.
+
+**Resolution (2026-04-23).** The upgrade approach is now captured in `03-STRAPI-UPGRADE-PLAN.md`. The committed approach is a **parallel fresh Strapi 5 instance**, not an in-place stepwise upgrade through v3 → v4 → v5. A new v5 instance is provisioned alongside v3; schemas, custom code, media, and data are migrated into it via a purpose-built migration script; cutover happens in a single window. The v3 instance remains untouched until the final cutover and is retained read-only for 30 days afterward. The critical coupling remains: Nuxt Phase 4 cannot start until Strapi Phase S7 (integration of the v5 instance with the Nuxt staging app) is complete. What remains open is the *start date* for the Strapi track, which depends on backend-owner commitment and hosting decisions.
 
 ### Q4: Edge function vs. Nitro server route for form submissions
 
@@ -62,7 +64,7 @@ Both options work on Netlify. Edge Functions have lower latency globally but few
 **Target phase:** Phase 4 (preview infrastructure)
 **Owner:** TBD
 
-`MASTER-DESIGN-PLAN.md` Section 4.5 sketches a shared-secret + signed-cookie flow. An alternative is per-author JWT from Strapi, which would give preview mode per-author audit logging (who previewed what, when). The shared-secret approach is simpler and sufficient for the current trust model. Revisit in Phase 4 if audit requirements tighten — if the agency needs to know which specific author previewed which draft at which time.
+`02-MASTER-DESIGN-PLAN.md` §4.5 sketches a shared-secret + signed-cookie flow. An alternative is per-author JWT from Strapi, which would give preview mode per-author audit logging (who previewed what, when). The shared-secret approach is simpler and sufficient for the current trust model. Revisit in Phase 4 if audit requirements tighten — if the agency needs to know which specific author previewed which draft at which time.
 
 ---
 
@@ -94,7 +96,7 @@ The current admin has views that may be unused (stale dashboards, commented-out 
 **Target phase:** Phase 1
 **Owner:** TBD
 
-`#2f6bff` is the mockup value. May be nudged toward Tailwind's `blue-600` (`#2563eb`) for closer alignment with the stock palette. Decide after the Phase 1 contrast audit with real content. See `DESIGN-SYSTEM.md` Section 7.
+`#2f6bff` is the mockup value. May be nudged toward Tailwind's `blue-600` (`#2563eb`) for closer alignment with the stock palette. Decide after the Phase 1 contrast audit with real content. See `05-DESIGN-SYSTEM.md` §7.
 
 ### Q9: Data-visualization palette
 
