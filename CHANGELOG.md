@@ -25,9 +25,10 @@ Plus: files were not numbered, so the reading order wasn't self-evident to a new
 
 ### Approach decisions
 
-Two decisions were made as part of this revision and are now load-bearing for downstream work:
+Three decisions were made as part of this revision and are now load-bearing for downstream work:
 
 - **Strapi upgrade: parallel fresh v5 instance, not in-place stepwise 3 → 4 → 5.** Stand up a new Strapi 5 instance alongside v3; migrate schemas, custom code, media, and data via a purpose-built migration script; cut over in a single window. The v3 instance is never touched until cutover and is retained read-only for 30 days afterward. Rationale: v3 → v4 is effectively a rewrite (new DB schema, new response shape, plugin API change), v4 → v5 is a second rewrite (Document Service, `documentId`/status draft model), and stepwise means two migration windows with two rollback plans on production. Parallel collapses to one migration script, one cutover, and trivial rollback. See `docs/03-STRAPI-UPGRADE-PLAN.md` §1.
+- **Strapi 5 database engine: SQLite.** ICJIA is an agency site with fewer than 500 hits per day, which is well inside SQLite's comfortable operating range. Strapi 5 supports SQLite as a first-class option. Postgres and MySQL would introduce operational overhead — a database server to run, back up, patch, monitor — without measurable benefit at this traffic level. SQLite keeps the entire CMS in a single file that agency IT can back up, copy, or restore with standard file-system tools. See `docs/03-STRAPI-UPGRADE-PLAN.md` §3.
 - **Two-track phasing with one cross-track gate.** The Nuxt rebuild (P0–P8) and the Strapi upgrade (S0–S9) run largely in parallel. The single hard coupling: **Nuxt Phase 4 cannot start until Strapi Phase S7 is complete** (Nuxt staging app querying v5 via GraphQL). Nuxt P0–P3 proceed against mock data. The critical path runs through S0 → S1 → S2 → S3 → S5 → S7 → P4 → P5 → P8. See `docs/04-PHASED-DELIVERABLE-PLAN.md` §1–§2.
 
 ### Added

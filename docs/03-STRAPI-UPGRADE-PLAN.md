@@ -53,7 +53,7 @@ Audit items:
 - **Admin users, roles, permissions.** Every account; every role; permissions matrix per content type.
 - **Webhooks and scheduled tasks.** External integrations (CI build hooks, third-party services).
 - **Environment variables and secrets.** `.env` contents audited; production secrets documented in the team password manager.
-- **Database engine and version.** SQLite, Postgres, MySQL, or MongoDB. Version. Note that MongoDB forces an engine switch — we commit to Postgres for v5 regardless.
+- **Database engine and version.** SQLite, Postgres, MySQL, or MongoDB. Version. Note that the v5 target is SQLite regardless (see §3); if v3 is MongoDB, the migration script handles the document-to-relational translation as it writes into v5's SQLite.
 - **Current hosting, deployment, and backup process.** Where is the v3 instance deployed, how is it deployed, what does the current backup cadence look like.
 
 Deliverable: a written inventory document, reviewed and signed off by the backend owner. Exit gate for Phase S0.
@@ -66,11 +66,13 @@ Deliverable: a written inventory document, reviewed and signed off by the backen
 |---|---|
 | Strapi | 5, latest LTS at project start |
 | Node | LTS version aligned with Strapi 5's supported range |
-| Database | PostgreSQL (committed, regardless of v3 engine) |
+| Database | **SQLite** (committed, regardless of v3 engine) |
 | Storage | S3-compatible object store (move off local filesystem if v3 used it) |
 | Hosting | Confirmed with backend owner (see `07-OPEN-QUESTIONS.md` Q3 resolution) |
 
-Postgres is chosen as the long-term direction. If v3 is on SQLite or MySQL, the data-migration script handles the engine change transparently — we read from v3's existing engine and write into v5's Postgres. MongoDB requires schema translation (document-shaped → relational) in the migration script; flag early if v3 turns out to be on Mongo.
+**SQLite is the committed database engine for v5.** ICJIA is an agency site with fewer than 500 hits per day, which is well inside SQLite's comfortable operating range. Strapi 5 supports SQLite as a first-class option (via `better-sqlite3`). The tradeoffs of the alternatives do not apply at this traffic level: Postgres and MySQL would introduce operational overhead (a database server to run, back up, patch, and monitor) without measurable benefit. SQLite keeps the entire CMS in a single file that can be backed up, copied, or restored with standard file-system tools — a good fit for agency IT.
+
+If v3 is on SQLite or MySQL, the data-migration script reads from v3's existing engine and writes into v5's SQLite. MongoDB requires schema translation (document-shaped → relational) in the migration script; flag early in S0 if v3 turns out to be on Mongo, since that shifts complexity into S5.
 
 ---
 
@@ -81,7 +83,7 @@ Detailed per-phase entry/exit criteria, deliverables, and risk flags are in `04-
 | Phase | Focus | Exit gate |
 |---|---|---|
 | **S0** | Inventory the current v3 instance (see §2) | Signed inventory document; backend owner confirms it matches production |
-| **S1** | Provision Strapi 5 instance; Postgres; CI/CD; env vars | `strapi start` reaches admin login on staging URL |
+| **S1** | Provision Strapi 5 instance; SQLite database file; CI/CD; env vars | `strapi start` reaches admin login on staging URL |
 | **S2** | Rebuild content-type schemas, components, dynamic zones | Every v3 content type has a v5 equivalent; schemas committed to git |
 | **S3** | Port custom code (controllers, services, policies, lifecycle hooks) to v5 patterns | Unit tests pass; behaviors match v3 spot-checks |
 | **S4** | Media storage configuration; mirror uploads bucket | A v3 upload URL resolves correctly against the v5 instance |

@@ -319,7 +319,7 @@ Signed inventory document. The backend owner confirms it matches production stat
 **Entry criteria**
 - S0 exit gate met.
 - Hosting target confirmed for v5 instance.
-- Postgres database provisioned (separate from v3's database).
+- SQLite database file provisioned for v5 (separate from v3's database). Backup cadence for the SQLite file agreed with agency IT.
 
 **Deliverables**
 - Fresh Strapi 5 installation (latest LTS at project start).
