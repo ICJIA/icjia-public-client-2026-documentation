@@ -19,7 +19,7 @@ The stepwise upgrade is effectively two rewrites on top of live data:
 
 - **3 → 4 is a rewrite.** Strapi 4 introduced a new database schema (components are stored in separate `components_*` tables with polymorphic joins), a new REST response shape (everything wrapped in `{ data, attributes, meta }`), a new plugin API, and the Entity Service layer that replaced direct model access. All custom controllers, services, and lifecycle hooks have to be rewritten. Plugins either have v4 equivalents or have to be replaced.
 - **4 → 5 is a second rewrite.** Strapi 5 introduced the Document Service (supersedes the Entity Service), replaced the draft/publish numeric `publishedAt` field with a `status` + `documentId` model, unwrapped REST responses (back to plain objects — reversing the v4 shape), and changed the GraphQL schema. Custom code written against v4's Entity Service is ported again.
-- **MongoDB is removed.** If the v3 instance uses MongoDB (not confirmed; see S0), v4 does not support it at all. That forces a database-engine migration as a prerequisite to even starting the v3 → v4 step.
+- **Database engine compatibility narrows at v4.** Strapi 4 dropped MongoDB and tightened the supported relational engines. ICJIA's v3 instance runs on SQLite, which Strapi 4 and 5 both still support; this is a non-issue for this project but is a representative example of the kinds of compatibility surprises that make in-place stepwise upgrades harder to scope than parallel-fresh.
 - **Two migration windows, two rollback plans.** Doing both stepwise on production means two scheduled outages, two sets of rollback scripts, and live data that has to survive both conversions.
 
 ### Why parallel
@@ -53,7 +53,7 @@ Audit items:
 - **Admin users, roles, permissions.** Every account; every role; permissions matrix per content type.
 - **Webhooks and scheduled tasks.** External integrations (CI build hooks, third-party services).
 - **Environment variables and secrets.** `.env` contents audited; production secrets documented in the team password manager.
-- **Database engine and version.** SQLite, Postgres, MySQL, or MongoDB. Version. Note that the v5 target is SQLite regardless (see §3); if v3 is MongoDB, the migration script handles the document-to-relational translation as it writes into v5's SQLite.
+- **Database engine and version.** ICJIA v3 runs on **SQLite**; the v5 target is also SQLite (see §3). No engine translation is required during migration — both sides use numeric primary keys, the same type system, and the same relational join semantics. Record the SQLite file size and the SQLite library version for reference; back up the v3 `.db` file before S5 dry-runs.
 - **Current hosting, deployment, and backup process.** Where is the v3 instance deployed, how is it deployed, what does the current backup cadence look like.
 
 Deliverable: a written inventory document, reviewed and signed off by the backend owner. Exit gate for Phase S0.
@@ -72,7 +72,7 @@ Deliverable: a written inventory document, reviewed and signed off by the backen
 
 **SQLite is the committed database engine for v5.** ICJIA is an agency site with fewer than 500 hits per day, which is well inside SQLite's comfortable operating range. Strapi 5 supports SQLite as a first-class option (via `better-sqlite3`). The tradeoffs of the alternatives do not apply at this traffic level: Postgres and MySQL would introduce operational overhead (a database server to run, back up, patch, and monitor) without measurable benefit. SQLite keeps the entire CMS in a single file that can be backed up, copied, or restored with standard file-system tools — a good fit for agency IT.
 
-If v3 is on SQLite or MySQL, the data-migration script reads from v3's existing engine and writes into v5's SQLite. MongoDB requires schema translation (document-shaped → relational) in the migration script; flag early in S0 if v3 turns out to be on Mongo, since that shifts complexity into S5.
+ICJIA v3 runs on SQLite and v5 will too, so S5 is a straightforward SQLite-to-SQLite migration via Strapi's REST and Document Service APIs — no engine translation, no ID-shape remapping, no document-to-relational reshaping. The migration script reads v3's REST API and writes to v5's Document Service; the underlying SQLite engine is incidental.
 
 ---
 

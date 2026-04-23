@@ -312,7 +312,7 @@ Signed inventory document. The backend owner confirms it matches production stat
 **Dependencies** Q3 ownership resolved.
 
 **Risk flags**
-- If the inventory surfaces MongoDB or very large custom-code surface area, re-scope S3 before committing to the timeline.
+- If the inventory surfaces a larger custom-code surface area than expected, re-scope S3 before committing to the timeline. (v3 engine is known: SQLite.)
 
 ### Phase S1 — Provision Strapi 5
 

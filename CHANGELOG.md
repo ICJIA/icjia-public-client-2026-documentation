@@ -9,6 +9,24 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html). The pack
 
 ---
 
+## [0.5.1] — 2026-04-23
+
+Factual correction: ICJIA's Strapi 3 instance runs on SQLite, not MongoDB. The prior revision treated Mongo as a possible (and therefore plan-for-it) case. Now recorded as known fact; the migration becomes SQLite → SQLite.
+
+### Changed
+
+- `docs/03-STRAPI-UPGRADE-PLAN.md` §1 — removed the "MongoDB is removed at v4" bullet's contingent framing. The v3 engine is known (SQLite), and Strapi 4/5 both still support SQLite, so this is a non-issue for this project. Reworded to keep the general point (compatibility narrows at v4) without implying Mongo is in play.
+- `docs/03-STRAPI-UPGRADE-PLAN.md` §2 (S0 inventory) — the "Database engine and version" audit item now states the known answer (SQLite) and the implication (no engine translation needed) rather than listing it as open.
+- `docs/03-STRAPI-UPGRADE-PLAN.md` §3 — simplified the post-table paragraph. SQLite → SQLite is a straightforward API-to-API migration; the earlier Mongo-branching complexity is removed.
+- `docs/04-PHASED-DELIVERABLE-PLAN.md` S0 risk flag — removed MongoDB as a re-scope trigger; replaced with "larger custom-code surface area than expected" and an explicit note that v3 engine is known.
+
+### Implications
+
+- **S5 (data-migration script) scope reduces.** No document-to-relational reshaping, no ObjectId-to-integer ID mapping, no per-engine extractor logic. The script reads v3 REST and writes v5 Document Service — the underlying SQLite engine is incidental.
+- **`hub-migration-tools` applicability improves.** That tool does API-to-API transfer, so extraction is DB-agnostic regardless of v3 engine. Mongo-specific transformations inside the tool become dead code paths when the source is SQLite (harmless but worth auditing during adaptation). The real adaptation cost remains expanding `schemas/` for ICJIA's content types, unchanged by this correction.
+
+---
+
 ## [0.5.0] — 2026-04-23
 
 Planning-set enhancement: added Strapi upgrade plan, phased deliverable plan, and a non-technical executive summary; renumbered documents for explicit reading order.
