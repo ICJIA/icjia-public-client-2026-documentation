@@ -1,7 +1,7 @@
 # ICJIA Public Website — Design System
 
 **Status:** DRAFT v0.1
-**Companion to:** `MASTER-DESIGN-PLAN.md`
+**Companion to:** `02-MASTER-DESIGN-PLAN.md`
 **Scope:** Visual tokens, typography, geometry, elevation, motion, and component mapping for the redesigned ICJIA site
 **Last updated:** 2026-04-23
 
@@ -153,7 +153,7 @@ Reference that table for the concrete `v-card` → `UCard`, `v-btn` → `UButton
 
 ## 7. Open design decisions
 
-Decisions that belong in this document but are not yet made. Tracked here rather than in `OPEN-QUESTIONS.md` because they're design-system-local.
+Decisions that belong in this document but are not yet made. Tracked here rather than in `07-OPEN-QUESTIONS.md` because they're design-system-local.
 
 1. **Exact primary blue shade.** `#2f6bff` is the mockup value. We may want to nudge toward Tailwind's `blue-600` (`#2563eb`) for closer alignment with the stock palette. Decide in Phase 1 after contrast audit with real content.
 2. **Data-visualization palette.** The site has charts (research datasets, grant statistics). The three-accent system (`blue`, `emerald`, `amber`) is too narrow for multi-series charts. A categorical palette of 6–8 colors — colorblind-safe — needs to be designed. Defer to Phase 4 when actual chart content appears.
