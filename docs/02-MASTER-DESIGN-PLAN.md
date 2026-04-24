@@ -2,8 +2,8 @@
 
 **Status:** DRAFT v0.5
 **Target repo:** `icjia-public-nuxt` (new — separate from `icjia-public-client-2021`)
-**Author(s):** TBD
-**Last updated:** 2026-04-23 (v0.5: planning set renumbered for reading order; Strapi upgrade and phased deliverable plans added as companions; Q3 resolved)
+**Author:** Chris Schweda (IDS — Innovation and Digital Services, ICJIA)
+**Last updated:** 2026-04-24 (Author field set to Chris Schweda / IDS — previously TBD; no content changes in this revision)
 **Companion documents:** `00-README.md`, `01-EXECUTIVE-SUMMARY.md`, `03-STRAPI-UPGRADE-PLAN.md`, `04-PHASED-DELIVERABLE-PLAN.md`, `05-DESIGN-SYSTEM.md`, `06-ACCESSIBILITY-STRATEGY.md`, `07-OPEN-QUESTIONS.md`
 **Supersedes (in part):** `docs/NUXT-ARCHITECTURE-RECOMMENDATIONS.md`, `docs/NUXT-REWRITE-PLAN.md` — see [Appendix B](#appendix-b-relationship-to-prior-documents)
 

@@ -2,7 +2,7 @@
 
 **Audience:** Agency directors, program managers, and anyone in leadership who does not work with websites day-to-day.
 **Status:** v2.0
-**Last updated:** 2026-04-23
+**Last updated:** 2026-04-24 (named Chris Schweda as project lead and single support contact; credentials added)
 
 This is a self-contained summary. You do not need to read any other document to understand this project. Technical terms are defined in the glossary at the end (§10). If something here is not clear, ask a team member directly — that is faster than tracking down supporting documentation.
 
@@ -66,7 +66,7 @@ The editing process stays familiar. The improvements are:
 
 - A short orientation session (about one hour) before the switch, covering what is different.
 - Written step-by-step guides tailored to each content type.
-- A named support contact — one person staff can email or message with questions for the first month.
+- A named support contact — Chris Schweda (IDS) is the single point of contact for staff questions for the first month.
 - A standing weekly check-in during the first month for any issues that surface.
 
 ## 6. How long the project takes
@@ -182,4 +182,4 @@ Plain-language definitions for every technical term that appears in this documen
 
 ## 11. Questions
 
-Questions about this project go to the project lead (to be named at kickoff). For quick questions during the project, every staff member will have a named point of contact. You do not need to read any supporting document to understand the shape of this work. If something in this summary is not clear or you want deeper detail on a specific aspect — visual design, accessibility, the editing tool, the timeline — ask, and a team member will brief you directly.
+Questions about this project go to **Chris Schweda**, project lead and developer (IDS — Innovation and Digital Services, ICJIA). Chris has been with the agency for 25+ years, has built or managed 15+ websites across Vue 2/3, JavaScript, and TypeScript, and built the current ICJIA website (April–August 2020), which has been in continuous production since. Chris is the sole implementer of this project and the person accountable for fixes after launch — as has been the case for the current site for the past five years. You do not need to read any supporting document to understand the shape of this work. If something in this summary is not clear or you want deeper detail on a specific aspect — visual design, accessibility, the editing tool, the timeline — email Chris directly.

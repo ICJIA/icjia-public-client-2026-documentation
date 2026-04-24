@@ -3,7 +3,7 @@
 **Status:** DRAFT v0.1
 **Companion to:** `03-STRAPI-UPGRADE-PLAN.md`, `04-PHASED-DELIVERABLE-PLAN.md`
 **Scope:** Operational procedure for running the Strapi 3 → Strapi 5 data migration via the `ICJIA/hub-migration-tools` framework (v4.1.0), from pre-migration audit through production cutover
-**Last updated:** 2026-04-24
+**Last updated:** 2026-04-24 (named Chris Schweda / IDS as sole operator and S0 inventory signer)
 
 ---
 
@@ -11,7 +11,7 @@
 
 This document is the **operational companion** to `03-STRAPI-UPGRADE-PLAN.md`. The upgrade plan describes *what* the migration does and *why* a parallel fresh Strapi 5 instance was chosen over an in-place upgrade. This runbook describes *how* to actually run it: exact commands, config fields, and go/no-go checkpoints.
 
-Audience: the developer executing the migration. Read this top to bottom before the first dry-run; treat it as a checklist during execution.
+Audience: the developer executing the migration — **Chris Schweda (IDS — Innovation and Digital Services, ICJIA)**. Chris is the sole operator for this migration and the accountable person for fixes after launch. Read this top to bottom before the first dry-run; treat it as a checklist during execution.
 
 Scope boundaries:
 
@@ -105,7 +105,7 @@ Save the record-count output as `strapi3-record-counts.txt`.
 
 ### 3.4 Exit gate
 
-A signed inventory document (markdown or PDF), committed to the repo, that includes: the content-type table above (confirmed), field-level schema per type, relation and component references, custom-code inventory per `03-STRAPI-UPGRADE-PLAN.md` §2, media summary, user/role matrix, webhooks, env-var list, SQLite checksum, record counts. Backend owner signs.
+A signed inventory document (markdown or PDF), committed to the repo, that includes: the content-type table above (confirmed), field-level schema per type, relation and component references, custom-code inventory per `03-STRAPI-UPGRADE-PLAN.md` §2, media summary, user/role matrix, webhooks, env-var list, SQLite checksum, record counts. Signed by Chris Schweda (implementer and backend owner).
 
 ---
 

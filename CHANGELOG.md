@@ -9,6 +9,28 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html). The pack
 
 ---
 
+## [0.8.1] — 2026-04-24
+
+Attribution sweep: Chris Schweda (IDS) named as project lead, implementer, post-launch maintainer, and interim security contact across the planning set. Replaces TBDs and generic "we / backend owner / whoever" phrasing in the documents where ownership is now confirmed. No substantive content changes beyond attribution.
+
+### Why this revision
+
+An adversarial review of the executive summary (hostile-manager lens) identified "no people named" as the single largest trust gap in the planning set. The user confirmed that Chris Schweda — 25+ years at ICJIA, 15+ websites across Vue 2/3, JavaScript, TypeScript, and the builder of the current ICJIA site (April–August 2020) — is the sole implementer, project lead, and post-launch maintainer. This revision applies that attribution everywhere it is load-bearing.
+
+### Changed
+
+- `docs/01-EXECUTIVE-SUMMARY.md` — support-contact line and §11 Questions paragraph now name Chris Schweda with credentials. Staff know who to email; managers know who's accountable.
+- `docs/02-MASTER-DESIGN-PLAN.md` — `Author` field set from `TBD` to `Chris Schweda (IDS — Innovation and Digital Services, ICJIA)`. Last-updated date refreshed.
+- `docs/07-OPEN-QUESTIONS.md` — Owner fields on all seven TBD questions (Q1, Q4, Q5, Q8, Q9, Q10, Q11) set to Chris Schweda (IDS). Q3 owner specified (`Chris Schweda — implementer and post-launch maintainer`); Q6 specified (`Chris Schweda (design lead) + communications lead`); Q7 specified (`Chris (audit and porting); agency staff confirm which views they use`). Last-updated date refreshed.
+- `docs/08-STRAPI-MIGRATION-RUNBOOK.md` — §1 audience line names Chris as sole operator; §3.4 exit gate now reads "Signed by Chris Schweda (implementer and backend owner)."
+- `docs/09-SECURITY-REQUIREMENTS.md` — SEC-01 updated: Chris Schweda named as interim security contact for the duration of the project. Resolution requirement expanded to require a formal agency security contact designation in addition (can be the same person if the agency prefers), so Chris is not the sole escalation path.
+
+### Not changed
+
+- `03-STRAPI-UPGRADE-PLAN.md`, `04-PHASED-DELIVERABLE-PLAN.md`, `05-DESIGN-SYSTEM.md`, `06-ACCESSIBILITY-STRATEGY.md`, `00-README.md`, and the `docs/phases/` scaffolds — no ownership phrasing that required updating in this pass. The phase docs are intentionally generic on accountability because the accountable person (Chris) is named in 01 and 08.
+
+---
+
 ## [0.8.0] — 2026-04-24
 
 Execution-level companions to the strategy set: a full Strapi 3 → 5 migration runbook and a scaffold for per-phase website-build deep dives.

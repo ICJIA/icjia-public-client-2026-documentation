@@ -3,7 +3,7 @@
 **Status:** DRAFT v0.1
 **Companion to:** `02-MASTER-DESIGN-PLAN.md`, `03-STRAPI-UPGRADE-PLAN.md`, `04-PHASED-DELIVERABLE-PLAN.md`, `07-OPEN-QUESTIONS.md`
 **Scope:** Security work that must be resolved or specified before implementation begins, organized by the phase it blocks.
-**Last updated:** 2026-04-24
+**Last updated:** 2026-04-24 (SEC-01 updated to name Chris Schweda as interim security contact)
 
 ---
 
@@ -33,16 +33,17 @@ These must be resolved before the repository is initialized or any code is writt
 
 ### SEC-01: Incident-response owner and escalation path
 
-**Status:** OPEN
+**Status:** OPEN (interim contact: Chris Schweda)
 **Severity:** CRITICAL
 **Blocks:** P0
 
-A state-government public website undergoing a rebuild with two live backends during the transition has nontrivial operational risk. There is currently no documented owner for responding to a security incident during the project and no escalation path. Today, a suspected compromise during development would not have an accountable receiver.
+A state-government public website undergoing a rebuild with two live backends during the transition has nontrivial operational risk. **Chris Schweda (IDS) is the interim security contact** — as project lead and accountable implementer, Chris is the immediate receiver for any suspected compromise during the project. This is sufficient for day-to-day development, but the agency should still designate a formal security contact (internal staff or external consultant) with explicit authority to take the site offline during an incident, so that Chris is not the sole escalation path.
 
 **Resolution required:**
 
-- Designate a named security contact for the project — internal staff or an external consultant — with explicit authority to take the site offline during an incident.
-- Document the escalation path: who is called first, who is called second, who has decision authority at each level.
+- Confirm Chris Schweda as the interim security contact for the duration of the project (operational today).
+- Designate a formal agency security contact — internal staff or an external consultant — with explicit authority to take the site offline during an incident. This can be the same person as Chris if the agency prefers, but it must be a documented designation with escalation authority, not an informal default.
+- Document the escalation path: who is called first (Chris), who is called second (formal security contact), who has decision authority at each level.
 - Document out-of-band contact methods (phone, personal email) in case agency email is compromised.
 - Store the incident-response plan in a location accessible without the agency network in case of outage.
 
