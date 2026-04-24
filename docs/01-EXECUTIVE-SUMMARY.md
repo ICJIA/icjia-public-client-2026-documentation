@@ -1,8 +1,8 @@
 # ICJIA Public Website Redesign — Executive Summary
 
 **Audience:** Agency directors, program managers, and anyone in leadership who does not work with websites day-to-day.
-**Status:** v2.0
-**Last updated:** 2026-04-24 (named Chris Schweda as project lead and single support contact; credentials added)
+**Status:** v2.1
+**Last updated:** 2026-04-24 (§6 Gantt figure replaced with two tables for easier scanning; obsolete glossary entry for "Gantt diagram" removed)
 
 This is a self-contained summary. You do not need to read any other document to understand this project. Technical terms are defined in the glossary at the end (§10). If something here is not clear, ask a team member directly — that is faster than tracking down supporting documentation.
 
@@ -79,37 +79,36 @@ This is substantially faster than a traditional website rebuild (typically 9–1
 - **Prior planning is already done.** The design direction is approved. The technical choices are made. The content inventory exists. The project starts on day one with known requirements, not a discovery phase.
 - **Focused scope.** We are not adding new features or changing what the site does. We are rebuilding what exists, better. A fixed scope lets the work progress in a predictable sequence.
 
-The project runs in two tracks that work at the same time and come together about halfway through. The figure below shows the shape. Numbers are working days relative to project start, not calendar dates — calendar dates depend on when we begin.
+The project runs in two tracks that work at the same time and come together about halfway through. The tables below show the shape. Numbers are working days relative to project start, not calendar dates — calendar dates depend on when we begin.
 
-```mermaid
-gantt
-    title Project shape — working days from project start
-    dateFormat  X
-    axisFormat  Day %s
+**Track 1 — Visible website**
 
-    section Visible website
-    Setup                    :p0, 0, 2d
-    Visual design system     :p1, after p0, 7d
-    Site structure           :p2, after p1, 4d
-    Homepage                 :p3, after p2, 4d
-    Page templates           :p4, after p3, 5d
-    Content rollout          :p5, after p4, 5d
-    Search and admin         :p6, after p5, 3d
-    Accessibility polish     :p7, after p6, 4d
-    Switch to new site       :p8, after p7, 2d
+| Activity | Working days | Duration |
+|---|---|---|
+| Setup | 1–2 | 2 days |
+| Visual design system | 3–9 | 7 days |
+| Site structure | 10–13 | 4 days |
+| Homepage | 14–17 | 4 days |
+| Page templates | 18–22 | 5 days |
+| Content rollout | 23–27 | 5 days |
+| Search and admin | 28–30 | 3 days |
+| Accessibility polish | 31–34 | 4 days |
+| Switch to new site | 35–36 | 2 days |
 
-    section Publishing tool upgrade
-    Inventory                :s0, 0, 1d
-    Set up new version       :s1, after s0, 1d
-    Content-type rebuild     :s2, after s1, 2d
-    Move custom features     :s3, after s2, 3d
-    Move images and files    :s4, after s2, 1d
-    Data migration           :s5, after s3, 3d
-    Move author accounts     :s6, after s5, 1d
-    Integration              :s7, after s6, 2d
-    Author testing           :s8, after s7, 3d
-    Switch to new version    :s9, after s8, 1d
-```
+**Track 2 — Publishing tool upgrade** (runs in parallel with Track 1; finishes around day 17, where the two tracks converge)
+
+| Activity | Working days | Duration |
+|---|---|---|
+| Inventory | 1 | 1 day |
+| Set up new version | 2 | 1 day |
+| Content-type rebuild | 3–4 | 2 days |
+| Move custom features | 5–7 | 3 days |
+| Move images and files | 5 | 1 day *(runs alongside "Move custom features")* |
+| Data migration | 8–10 | 3 days |
+| Move author accounts | 11 | 1 day |
+| Integration | 12–13 | 2 days |
+| Author testing | 14–16 | 3 days |
+| Switch to new version | 17 | 1 day |
 
 **What stays on a human timeline.** Accessibility reviews by real people, author testing on the new editing tool, and final stakeholder approval. These are deliberately not compressed; they are where we catch problems that no amount of automation would surface.
 
@@ -166,7 +165,6 @@ Plain-language definitions for every technical term that appears in this documen
 - **Dev / staging / production.** Three copies of the website. *Dev* is where developers try things. *Staging* is a private working copy that looks like the public site; staff test here. *Production* is the public site — what residents actually see.
 - **Draft, preview, published.** The three states of a piece of content in the editing tool. *Draft*: being worked on; not visible to the public. *Preview*: draft rendered exactly as it will appear once published. *Published*: visible on the public site.
 - **Editor, author, publisher.** Words used interchangeably for staff who create and publish content on the agency's behalf.
-- **Gantt diagram.** A horizontal bar chart that shows what work happens when. Each bar is a phase; its position along the horizontal axis shows when it starts and ends; stacked bars show work happening in parallel. The figure in §6 is a Gantt diagram.
 - **Milestone.** A specific, visible moment in the project that demonstrates progress — for example, "the homepage is live on staging." Milestones are the points where leadership can check in.
 - **Parallel (running in parallel).** Two lines of work happening at the same time rather than one after the other. In this project, the visible-website rebuild and the publishing-tool upgrade are parallel.
 - **Phase.** A self-contained piece of the project with a clear start, a clear end, and a single completion question. This project has nine phases on the website side and ten on the publishing-tool side. Each phase takes days, not weeks.

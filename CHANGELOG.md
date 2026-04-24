@@ -9,6 +9,27 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Pre-1.0 
 
 ---
 
+## [0.10.1] — 2026-04-24
+
+Presentation-only update in the executive summary: the §6 Mermaid Gantt chart is replaced by two tables (one per track), so non-technical readers can synthesize the schedule without relying on the Gantt visual.
+
+### Why this revision
+
+The executive summary is written for agency directors and program managers (per 0.6.0). User feedback on the Gantt figure: "looks cool, but a table might be easier to synthesize for non-tech managers." Tables also render identically in every Markdown surface — GitHub view, copy/paste into email, printouts, SharePoint previews — whereas the Mermaid Gantt only renders where a Mermaid plugin is active and falls back to a raw fenced code block everywhere else.
+
+### Changed
+
+- `docs/01-EXECUTIVE-SUMMARY.md` §6 — Mermaid `gantt` block replaced with two Markdown tables. Track 1 (Visible website): 9 activities from Setup (days 1–2) through Switch to new site (days 35–36). Track 2 (Publishing tool upgrade): 10 activities from Inventory (day 1) through Switch to new version (day 17). Each row carries working-day range and duration. The one parallel branch in Track 2 (Move images and files runs alongside Move custom features) is called out inline.
+- `docs/01-EXECUTIVE-SUMMARY.md` §10 glossary — entry for "Gantt diagram" removed; the term no longer appears in the document.
+- `docs/01-EXECUTIVE-SUMMARY.md` frontmatter — v2.0 → v2.1.
+
+### Not changed
+
+- No durations or dependencies changed. Day ranges in the tables are computed directly from the previous Gantt's `after X, Nd` dependency graph; the schedule is identical. Presentation format is the only change. Days are now 1-indexed (Day 1 = first day of work) rather than the Gantt's 0-indexed ticks, which reads more naturally without the axis labels for context.
+- No other planning document was touched.
+
+---
+
 ## [0.10.0] — 2026-04-24
 
 UI reference assets committed to `ui/`; README includes a visual of the proposed redesign.
