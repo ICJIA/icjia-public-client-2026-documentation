@@ -9,6 +9,38 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html). The pack
 
 ---
 
+## [0.7.0] — 2026-04-24
+
+Red-team / blue-team security review of the planning set; new pre-implementation security requirements document recording the must-fix items surfaced by the review.
+
+### Why this revision
+
+The planning set (v0.6.0) has strong architecture — parallel-fresh Strapi migration, preview flow with short-lived signed cookies, WCAG 2.1 AAA on core reading paths. But a systematic security review found that operational security detail (authentication acceptance criteria, incident response, logging, secrets management, backup beyond rollback, vendor compliance) was either deferred to `07-OPEN-QUESTIONS.md` with no concrete criteria or missing entirely. For a state-government public site, these cannot reach implementation unaddressed.
+
+### Added
+
+- `docs/09-SECURITY-REQUIREMENTS.md` — 13 security items, each tagged with severity (CRITICAL / HIGH / IMPORTANT), the implementation phase it blocks, and a resolution requirement. Three CRITICAL items block Phase 0 (scaffold): incident-response owner and escalation path (SEC-01); state-government vendor compliance confirmation for Netlify and DigitalOcean (SEC-02); secrets-management strategy (SEC-03). Five HIGH items block S1, P6, and P8. Five IMPORTANT items are implementation-phase requirements. The document is append-only, same convention as `07-OPEN-QUESTIONS.md` — resolved items retain their original text with a resolution paragraph appended.
+
+### Changed
+
+- `docs/00-README.md` — added row 09 to the status table; added a "Security reviewer" reading path; extended the project-sponsor, backend-engineer, and frontend-engineer paths to include 09.
+
+### Review findings summary (captured in `09-SECURITY-REQUIREMENTS.md`)
+
+**Top 3 blockers:**
+
+1. **Admin authentication under-specified.** Plan defers to `07-OPEN-QUESTIONS.md` Q7 with no acceptance criteria. MFA, rate limiting, session timeout, post-cutover password rotation are not in the plan. Tracked as SEC-06.
+2. **Incident response absent.** No named security contact, no escalation path, no out-of-band communication plan. Tracked as SEC-01.
+3. **Logging and audit trail absent.** Required for state-government compliance; also required for post-incident forensics. Tracked as SEC-04.
+
+**What was preserved as good.** Accessibility-first architecture (`06-ACCESSIBILITY-STRATEGY.md`), preview-flow design (`02-MASTER-DESIGN-PLAN.md` §4.5 — signed cookies, short-lived, author-session-coupled), and parallel-fresh Strapi migration (`03-STRAPI-UPGRADE-PLAN.md` §1 — reduces operational risk).
+
+### Out of scope (flagged for agency coordination)
+
+Data classification, FOIA coordination, Illinois-specific security standards, record retention — these are handled by agency policy, not the project planning set, but are flagged in §Out-of-scope of the new document.
+
+---
+
 ## [0.6.0] — 2026-04-23
 
 Executive summary expanded for non-technical readers; project timeline revised to 6–8 weeks.

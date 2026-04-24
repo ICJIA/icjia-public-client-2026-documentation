@@ -11,10 +11,11 @@ Read in the order listed. Files are numbered; skip what isn't in your path.
 | Role | Reading order |
 |---|---|
 | Non-technical manager, funder, or sponsor | **01** |
-| Project sponsor or program manager | 01 → 02 → 04 |
-| Backend / CMS engineer | 01 → 02 → 03 → 04 → 07 |
-| Frontend engineer | 01 → 02 → 05 → 06 → 04 → 07 |
+| Project sponsor or program manager | 01 → 02 → 04 → 09 |
+| Backend / CMS engineer | 01 → 02 → 03 → 04 → 09 → 07 |
+| Frontend engineer | 01 → 02 → 05 → 06 → 04 → 09 → 07 |
 | Accessibility reviewer | 06 → 02 §5 → 05 §1.4 |
+| Security reviewer | 09 → 02 §4.5 → 03 §9 → 06 |
 
 ## Document status
 
@@ -28,6 +29,7 @@ Read in the order listed. Files are numbered; skip what isn't in your path.
 | 05 | `05-DESIGN-SYSTEM.md` | DRAFT v0.1 | frontend engineers, design |
 | 06 | `06-ACCESSIBILITY-STRATEGY.md` | DRAFT v0.1 | frontend, QA, a11y reviewers |
 | 07 | `07-OPEN-QUESTIONS.md` | LIVING | everyone — appended as decisions close |
+| 09 | `09-SECURITY-REQUIREMENTS.md` | DRAFT v0.1 | project lead + security reviewer — must-fix items before/during implementation |
 
 ## Contributing to these documents
 
