@@ -9,6 +9,34 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html). The pack
 
 ---
 
+## [0.8.0] — 2026-04-24
+
+Execution-level companions to the strategy set: a full Strapi 3 → 5 migration runbook and a scaffold for per-phase website-build deep dives.
+
+### Why this revision
+
+Planning so far has been strategic — `03-STRAPI-UPGRADE-PLAN.md` tells you *what* the migration does and *why* the parallel-fresh-v5 approach was chosen; `04-PHASED-DELIVERABLE-PLAN.md` tells you *what* each website phase delivers and *what* gates it. The implementation lead now needs the *how*: exact commands, config edits, go/no-go checkpoints for the migration, and a per-phase reference for frontend work as it starts. This revision adds those execution-level docs without editing the strategy set.
+
+### Added
+
+- `docs/08-STRAPI-MIGRATION-RUNBOOK.md` (DRAFT v0.1) — full operational runbook for running the Strapi 3 → Strapi 5 migration via `ICJIA/hub-migration-tools` v4.1.0. Covers pre-migration audit, fork/config of the tool, ICJIA content-type schema additions, local dry-run of Phases 01–06 against a disposable Strapi 5, local sign-off gate, production run on the pre-provisioned DO server, rollback (including pre-migration SQLite + uploads backups), post-migration sign-off, and an appendix of known gotchas (reserved `legacyId`, hardcoded SSH values in `fix-timestamps-remote.js`, `fix-image-refs.js` assumptions, `allowedStatuses` filter).
+- `docs/phases/README.md` — index for the new per-phase subfolder; documents the shared template structure and the round-2 fill-in plan.
+- `docs/phases/P0-scaffold.md` through `docs/phases/P8-cutover.md` — nine scaffold files, one per Nuxt-track phase. Structure and generic content drawn from `04-PHASED-DELIVERABLE-PLAN.md`, `05-DESIGN-SYSTEM.md`, `06-ACCESSIBILITY-STRATEGY.md`, and `02-MASTER-DESIGN-PLAN.md`. Each file carries explicit `**TBD — filled in design round 2:**` markers where design input is required.
+
+### Changed
+
+- `docs/00-README.md` — added row `08` to the document status table; added a `### Subfolders` section pointing at `docs/phases/`; updated reading paths (Backend/CMS engineer now includes `08`; Frontend engineer now includes `docs/phases/*`).
+
+### Scaffold note
+
+The per-phase docs (`docs/phases/P*.md`) are intentionally incomplete in this revision. Sections for screens/routes, design-specific components, and design references carry `**TBD — filled in design round 2:**` markers so a later `grep` finds every gap. Round 2 — once the HTML design artifacts are shared — fills those sections in and bumps each file from `SCAFFOLD v0.1` to `DRAFT v0.2`.
+
+### Not changed
+
+- `02-MASTER-DESIGN-PLAN.md`, `03-STRAPI-UPGRADE-PLAN.md`, `04-PHASED-DELIVERABLE-PLAN.md`, `05-DESIGN-SYSTEM.md`, `06-ACCESSIBILITY-STRATEGY.md`, `07-OPEN-QUESTIONS.md`, `09-SECURITY-REQUIREMENTS.md`, `01-EXECUTIVE-SUMMARY.md` — the strategy and security-review sets are untouched. The runbook is the operational companion to 03; the phase scaffolds are companions to 04.
+
+---
+
 ## [0.7.0] — 2026-04-24
 
 Red-team / blue-team security review of the planning set; new pre-implementation security requirements document recording the must-fix items surfaced by the review.

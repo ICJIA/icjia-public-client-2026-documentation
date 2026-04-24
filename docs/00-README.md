@@ -1,6 +1,6 @@
 # ICJIA Public Website Redesign — Documentation
 
-**Last updated:** 2026-04-23
+**Last updated:** 2026-04-24
 
 This folder contains the planning set for the rebuild of icjia.illinois.gov. The site will be faster, easier for staff to update, and meet stricter accessibility standards. Behind the scenes the underlying content system (Strapi) is also being upgraded from a version that is no longer supported to the current version.
 
@@ -12,8 +12,8 @@ Read in the order listed. Files are numbered; skip what isn't in your path.
 |---|---|
 | Non-technical manager, funder, or sponsor | **01** |
 | Project sponsor or program manager | 01 → 02 → 04 → 09 |
-| Backend / CMS engineer | 01 → 02 → 03 → 04 → 09 → 07 |
-| Frontend engineer | 01 → 02 → 05 → 06 → 04 → 09 → 07 |
+| Backend / CMS engineer | 01 → 02 → 03 → 04 → 08 → 09 → 07 |
+| Frontend engineer | 01 → 02 → 05 → 06 → 04 → `docs/phases/*` → 09 → 07 |
 | Accessibility reviewer | 06 → 02 §5 → 05 §1.4 |
 | Security reviewer | 09 → 02 §4.5 → 03 §9 → 06 |
 
@@ -29,7 +29,12 @@ Read in the order listed. Files are numbered; skip what isn't in your path.
 | 05 | `05-DESIGN-SYSTEM.md` | DRAFT v0.1 | frontend engineers, design |
 | 06 | `06-ACCESSIBILITY-STRATEGY.md` | DRAFT v0.1 | frontend, QA, a11y reviewers |
 | 07 | `07-OPEN-QUESTIONS.md` | LIVING | everyone — appended as decisions close |
+| 08 | `08-STRAPI-MIGRATION-RUNBOOK.md` | DRAFT v0.1 | backend / CMS engineers — operational companion to 03 |
 | 09 | `09-SECURITY-REQUIREMENTS.md` | DRAFT v0.1 | project lead + security reviewer — must-fix items before/during implementation |
+
+### Subfolders
+
+- [`docs/phases/`](./phases/) — per-phase deep-dive docs for the Nuxt rebuild (P0–P8). Companion to `04-PHASED-DELIVERABLE-PLAN.md`. Currently scaffolds; design-driven content fills in a second planning round once the HTML designs are shared.
 
 ## Contributing to these documents
 
