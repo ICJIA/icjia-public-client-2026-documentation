@@ -1,10 +1,10 @@
 # ICJIA Public Website Redesign — Executive Summary
 
 **Audience:** Agency directors, program managers, and anyone in leadership who does not work with websites day-to-day.
-**Status:** v2.1
-**Last updated:** 2026-04-24 (§6 Gantt figure replaced with two tables for easier scanning; obsolete glossary entry for "Gantt diagram" removed)
+**Status:** v2.2
+**Last updated:** 2026-04-24 (new §6 "What the work actually is" — plain-language walkthrough of the migration process; first-draft homepage render added to §2; third timeline bullet reworded; glossary additions)
 
-This is a self-contained summary. You do not need to read any other document to understand this project. Technical terms are defined in the glossary at the end (§10). If something here is not clear, ask a team member directly — that is faster than tracking down supporting documentation.
+This is a self-contained summary. You do not need to read any other document to understand this project. Technical terms are defined in the glossary at the end (§11). If something here is not clear, ask a team member directly — that is faster than tracking down supporting documentation.
 
 ---
 
@@ -19,6 +19,10 @@ The entire project is expected to take **6 to 8 weeks** of active work, start to
 Residents see no disruption. The existing site stays online the whole time; when the new one is ready, we switch the public address in a pre-announced window. Bookmarks and existing links continue to work.
 
 ## 2. What the new site will look and feel like
+
+![First-draft homepage render of the proposed ICJIA redesign: dark, angular, contemporary editorial layout with hero, news ribbon, quick-links, research grid, and stats sections.](../ui/ICJIA_Redesign_v2_squared_full_page.png)
+
+**First-draft homepage render, shown in dark mode.** A light mode is also part of the same design system, so users can pick the mode that suits them — and the site honors the device's preference by default (most operating systems expose a dark/light toggle for this purpose). This is a starting point for discussion; the final design may evolve as we iterate.
 
 **Visual.** The new design is deliberately contemporary — cleaner typography, more readable layouts, a consistent look across every section. Compared to the current site, it will feel like a fresh page on a modern state government site rather than a page from 2021.
 
@@ -69,13 +73,74 @@ The editing process stays familiar. The improvements are:
 - A named support contact — Chris Schweda (IDS) is the single point of contact for staff questions for the first month.
 - A standing weekly check-in during the first month for any issues that surface.
 
-## 6. How long the project takes
+## 6. What the work actually is
+
+This section answers the adversarial question a careful manager has a right to ask: *what, exactly, are you going to do?*
+
+Everything below happens on new infrastructure, separate from the running site. Residents see no change until the final cutover window. The work has a specific order:
+
+**The database that stores our content is migrated first, and parity with the old site is confirmed before anything else proceeds. Only once the content is in place does the visible site get built out, section by section.**
+
+Some design and scaffolding work on the visible-site track happens alongside the database migration — setting up the site's visual system, its navigation shell, and the shape of the page templates. That work can proceed in parallel, and the timeline tables in §7 show how the two tracks overlap. But no section of the visible site is lit up with real content until the database migration passes its parity check.
+
+### 6.1 The current site keeps running throughout
+
+The existing `icjia.illinois.gov` continues to serve residents for the entire project. Nothing on it is deleted, edited, or taken offline until the 2-hour cutover window at the very end. Staff continue publishing to the current site as normal. Only when the new site is reviewed, tested, and approved does the public address switch.
+
+### 6.2 A new publishing tool is built alongside the old one
+
+The publishing tool is not upgraded in place. Upgrading in place — editing the live system while staff rely on it — carries a high risk of leaving it unusable mid-project if anything goes wrong. Instead, we install a fresh copy of the new publishing-tool version on new infrastructure, starting from empty. The old tool is never touched until cutover. If any step hits a problem, the publishing tool staff are actually using keeps working.
+
+### 6.3 Content is migrated; parity is verified; content types are adjusted if needed
+
+This is the critical gate. A migration script — a small program written for this project that runs automatically — reads every piece of content out of the old publishing tool and writes it into the new one. It covers news items, events, grants, research, unit pages, biographies, policy documents, images, and uploaded files. The script runs end-to-end in a few minutes. Nothing is typed by hand.
+
+Staff authors then spot-check a representative sample against the originals. *Parity* means: every piece of content that exists in the old tool exists in the new one, with the same text, same images, same metadata, and the same relationships between items — nothing lost, nothing distorted.
+
+If the spot-check finds a gap, one of two things happens:
+
+- **Most often, we adjust the migration script and run it again** against a fresh copy. This is iteration, not rework — each run takes a few minutes.
+- **Occasionally, the old tool has a field the new tool does not yet have a place for.** In that case, we add a content-type definition to the new tool (think: a new field, or a new kind of page) and run the migration again.
+
+This cycle repeats until staff authors confirm the sample is correct. **No section of the visible website is filled in with real content until this gate passes.**
+
+### 6.4 The visible website is then built out section by section, with real content
+
+Once parity is confirmed, the new site gets populated with real content from the new publishing tool — no more placeholders. This happens in a deliberate order:
+
+1. **Homepage.** The front door, set against the first-draft render shown in §2.
+2. **News.** Ongoing and archived news items.
+3. **Events.** Upcoming and past events.
+4. **Grants.** Active opportunities and awarded grants.
+5. **Research.** Reports, publications, and datasets.
+6. **About pages.** Staff biographies, unit pages, policy documents.
+
+Each section is completed — design checked against the mockup, accessibility reviewed, any content oddities flagged back to authors — before the next section starts. This keeps review tractable and prevents problems in an early section from compounding through later ones.
+
+### 6.5 Testing happens with real people before anything goes live
+
+Before the new site takes over the public address, two rounds of testing happen on the staging copy (the private working version at `next.icjia.illinois.gov`):
+
+- **Accessibility review.** A person trained in screen-reader use and keyboard-only navigation walks through every template and files any issues. We fix them. They walk through again.
+- **Author testing.** Staff authors try drafting, previewing, and publishing real content on the new publishing tool. They file any issues. We fix them. They try again.
+
+Neither test is skipped, and neither is replaced by an automated check. The purpose is to surface the kinds of problems that only a real person using the site can find.
+
+### 6.6 Cutover is a 2-hour event; the old site stays on standby for 30 days
+
+On a pre-announced low-traffic day (typically a weekend morning), we change the public address to point to the new infrastructure. This takes minutes. Visitors arriving during the window see a brief "maintenance" page.
+
+After the switch, both the old publishing tool and the old website remain running, untouched, on their existing addresses — invisible to residents but reachable by the project team. For 30 days after cutover, if any problem surfaces that cannot be fixed quickly on the new site, we point the public address back to the old site in minutes and resume normal operation there. No data is lost; the old site was never modified.
+
+After 30 days of stable operation on the new site, the old tool and old website are retired.
+
+## 7. How long the project takes
 
 **Approximately 6 to 8 weeks of active work, start to finish.**
 
 This is substantially faster than a traditional website rebuild (typically 9–12 months for a project of this scope) because we are combining three things that compress the work:
 
-- **AI-assisted code generation.** A large share of the repetitive work — creating page templates, writing the code that connects the editing tool to the public site, translating designs into working pages, and setting up the data migration — is handled by AI tooling working alongside the developer. Work that historically took weeks of developer time takes days.
+- **Developer familiarity with the stack.** The developer has built the current ICJIA website and 15+ other sites on the same underlying technology (Vue, JavaScript, TypeScript). Work that would take a new developer weeks of ramp-up takes days when the same patterns have been built, refined, and shipped before. Much of this project's scaffolding code already exists, proven, on prior ICJIA work.
 - **Prior planning is already done.** The design direction is approved. The technical choices are made. The content inventory exists. The project starts on day one with known requirements, not a discovery phase.
 - **Focused scope.** We are not adding new features or changing what the site does. We are rebuilding what exists, better. A fixed scope lets the work progress in a predictable sequence.
 
@@ -119,7 +184,7 @@ The project runs in two tracks that work at the same time and come together abou
 - **End of week 6.** The new site has all content types rendered and is ready for accessibility and visual polish.
 - **End of week 7 or 8.** Final review; cutover to the public address.
 
-## 7. What we need from leadership
+## 8. What we need from leadership
 
 Four decisions, none of them large, but each one blocks the start:
 
@@ -130,7 +195,7 @@ Four decisions, none of them large, but each one blocks the start:
 
 Everything else — the development, the testing, the setup, the migration — happens without leadership intervention.
 
-## 8. Risks worth naming at the leadership level
+## 9. Risks worth naming at the leadership level
 
 Three. None are unusual; all are manageable.
 
@@ -142,7 +207,7 @@ Three. None are unusual; all are manageable.
 
 These risks are ordinary for a project of this size. They are managed through planning and communication, not by attempting to eliminate them.
 
-## 9. How progress is tracked
+## 10. How progress is tracked
 
 **Weekly written update,** delivered every Friday to a defined stakeholder list. One page. Three sections: what was completed this week, what is coming next week, any blockers. No meeting required; the update is read at leadership's convenience.
 
@@ -150,23 +215,25 @@ These risks are ordinary for a project of this size. They are managed through pl
 
 **Decisions are recorded in writing** the moment they are made — the date, the decision, and who made it. Nothing relies on anyone's memory of a hallway conversation.
 
-## 10. Glossary
+## 11. Glossary
 
 Plain-language definitions for every technical term that appears in this document. Ordered alphabetically.
 
 - **Accessibility.** Features of a website that let people use it regardless of disability. Common examples: compatibility with software that reads pages aloud (for blind users), full functionality when navigating by keyboard alone (for users who cannot use a mouse), and readability at large text sizes. Illinois state-government sites are required by law to meet a specific accessibility standard.
 - **Agency IT.** The Illinois Criminal Justice Information Authority's internal information-technology staff — the people who administer the agency's servers, accounts, and internal systems.
-- **AI-assisted code generation.** Software that writes programming code for a developer based on written instructions, which the developer then reviews and refines. It is to programming what a very fast draftsman is to an architect: it handles repetitive work so the person in charge can focus on the parts that require judgment.
 - **Archetype (page archetype).** A template pattern for a kind of page. For example, every news article has the same general structure — headline, date, body, related items — so we build one "news article template" and every actual article uses it. The site has about six archetypes, covering every page on the site.
 - **Build / rebuild (the technical kind).** In web development, a "build" is the automated process of preparing a website's files so it can be served to visitors. Each time content is published, a rebuild runs automatically. This takes a few minutes and is invisible to visitors.
 - **Content management system (CMS).** The software that staff use to write and publish content. In this project, specifically the tool called Strapi. Residents never see it; only staff do.
+- **Content type.** A kind of page or record that exists in the publishing tool. Examples: a news item, an event, a grant, a research paper, a staff biography. Each content type has its own set of fields (title, date, body, authors, etc.) that staff fill in. When we say "we add a content-type definition" during migration, we mean we add a new kind of page or a new field to hold something from the old tool.
 - **Critical path.** The sequence of steps in a project where each one must finish before the next can start. If any step on the critical path slips, the whole project slips by the same amount. Steps that are not on the critical path can slip without affecting the end date.
 - **Cutover.** The moment when the public web address is switched from the old site to the new one. It takes a few minutes to execute and is the final step of the project.
 - **Dev / staging / production.** Three copies of the website. *Dev* is where developers try things. *Staging* is a private working copy that looks like the public site; staff test here. *Production* is the public site — what residents actually see.
 - **Draft, preview, published.** The three states of a piece of content in the editing tool. *Draft*: being worked on; not visible to the public. *Preview*: draft rendered exactly as it will appear once published. *Published*: visible on the public site.
 - **Editor, author, publisher.** Words used interchangeably for staff who create and publish content on the agency's behalf.
+- **Migration script.** A small program, written specifically for this project, that automatically reads every piece of content out of the old publishing tool and writes it into the new one. It runs in a few minutes, covers every kind of content, and types nothing by hand. When parity checks find a problem, we adjust the script and run it again — we do not retype the content.
 - **Milestone.** A specific, visible moment in the project that demonstrates progress — for example, "the homepage is live on staging." Milestones are the points where leadership can check in.
 - **Parallel (running in parallel).** Two lines of work happening at the same time rather than one after the other. In this project, the visible-website rebuild and the publishing-tool upgrade are parallel.
+- **Parity (content parity).** A check that the content in the new publishing tool matches the content in the old one exactly — same text, same images, same metadata, same relationships between items. Parity is considered achieved when staff authors have spot-checked a representative sample and confirmed nothing is lost or distorted. The migration does not advance past this gate until parity is confirmed.
 - **Phase.** A self-contained piece of the project with a clear start, a clear end, and a single completion question. This project has nine phases on the website side and ten on the publishing-tool side. Each phase takes days, not weeks.
 - **Production.** The public site — what residents actually see at `icjia.illinois.gov`. The opposite of "staging."
 - **Redirect.** A rule that automatically forwards visitors from an old web address to a new one. If a resident has bookmarked a page that has since moved, a redirect quietly sends them to the new location.
@@ -178,6 +245,6 @@ Plain-language definitions for every technical term that appears in this documen
 - **Strapi.** The specific publishing tool that agency staff use. Version 3 is the current one (end-of-life); version 5 is the current release we are moving to.
 - **URL / web address.** The address of a specific page, such as `icjia.illinois.gov/news/some-story`. "URL" and "web address" mean the same thing.
 
-## 11. Questions
+## 12. Questions
 
 Questions about this project go to **Chris Schweda**, project lead and developer (IDS — Innovation and Digital Services, ICJIA). Chris has been with the agency for 25+ years, has built or managed 15+ websites across Vue 2/3, JavaScript, and TypeScript, and built the current ICJIA website (April–August 2020), which has been in continuous production since. Chris is the sole implementer of this project and the person accountable for fixes after launch — as has been the case for the current site for the past five years. You do not need to read any supporting document to understand the shape of this work. If something in this summary is not clear or you want deeper detail on a specific aspect — visual design, accessibility, the editing tool, the timeline — email Chris directly.

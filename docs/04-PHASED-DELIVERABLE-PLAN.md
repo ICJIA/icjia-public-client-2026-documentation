@@ -1,9 +1,9 @@
 # ICJIA Public Website — Phased Deliverable Plan
 
-**Status:** DRAFT v0.1
+**Status:** DRAFT v0.2
 **Companion to:** `02-MASTER-DESIGN-PLAN.md`, `03-STRAPI-UPGRADE-PLAN.md`
 **Scope:** Per-phase task lists, entry/exit criteria, deliverables, dependencies, and risk flags for both the website rebuild and the Strapi upgrade tracks
-**Last updated:** 2026-04-23
+**Last updated:** 2026-04-24 (§2 third compression-factor bullet reworded to attribute schedule to the developer's demonstrable stack experience rather than methodology framing)
 
 ---
 
@@ -69,7 +69,7 @@ The project's critical path runs through:
 
 Why this schedule is compressed compared to traditional estimates:
 
-- **AI-assisted development** handles the repetitive scaffolding — page templates, CMS integration code, data-migration scaffolding, component implementation. The developer reviews and refines rather than writes from scratch. This is the single largest compression factor; otherwise-multi-week phases collapse to days.
+- **Developer familiarity with the stack.** The developer has built the current ICJIA website and 15+ other sites on the same underlying technology (Vue, JavaScript, TypeScript). Work that would take a new developer weeks of ramp-up — page templates, CMS integration code, data-migration scaffolding, component implementation — takes days when the same patterns have been built, refined, and shipped on prior projects. This is the largest single compression factor; otherwise-multi-week phases collapse to days.
 - **`hub-migration-tools` as a starting point** for the Strapi track (see `03-STRAPI-UPGRADE-PLAN.md`). That tool already solves the phase scaffolding, parity audit, and fix-script patterns; adaptation cost is limited to expanding content-type handling.
 - **Planning is complete.** The project starts with known requirements, an approved visual direction, and a decided stack — no discovery phase.
 

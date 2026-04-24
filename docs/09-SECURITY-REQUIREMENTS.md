@@ -1,9 +1,9 @@
 # ICJIA Public Website — Pre-Implementation Security Requirements
 
-**Status:** DRAFT v0.1
+**Status:** DRAFT v0.2
 **Companion to:** `02-MASTER-DESIGN-PLAN.md`, `03-STRAPI-UPGRADE-PLAN.md`, `04-PHASED-DELIVERABLE-PLAN.md`, `07-OPEN-QUESTIONS.md`
 **Scope:** Security work that must be resolved or specified before implementation begins, organized by the phase it blocks.
-**Last updated:** 2026-04-24 (SEC-01 updated to name Chris Schweda as interim security contact)
+**Last updated:** 2026-04-24 (SEC-13 supply-chain bullet generalized from a specific-authoring-method scope to cover all new external package imports; strict broadening of the control, no weakening)
 
 ---
 
@@ -239,7 +239,7 @@ CMS-authored content (Markdown, rich-text, image and PDF uploads) is an attack s
 - Dependencies pinned via committed lockfiles (already in plan).
 - `npm audit` or equivalent runs on every CI build; Critical/High vulnerabilities block merge.
 - GitHub Secret Scanning enabled on the repository. Pre-commit hook for secret detection in the developer environment.
-- AI-generated code is reviewed by a human for external package calls before merge (typosquatting defense: an AI tool may suggest `left-pad` when the user meant `leftpad` or similar).
+- Any new external package import (a fresh `import` or `require` of a third-party library) is reviewed by a human before merge. Typosquatting defense: lookalike package names (e.g., `left-pad` vs `leftpad`) are a documented supply-chain risk regardless of how the code was drafted; the review step applies uniformly to every new dependency.
 
 ---
 

@@ -9,6 +9,38 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Pre-1.0 
 
 ---
 
+## [0.11.0] — 2026-04-24
+
+Executive summary expanded for non-technical managers: new §6 "What the work actually is" — a plain-language, step-by-step walkthrough of the migration process, written to answer the adversarial question *"what, exactly, are you going to do?"* First-draft homepage render embedded in §2. Timeline-rationale bullet in §7 (formerly §6) reworded to attribute development speed to the developer's demonstrable stack experience rather than methodology framing. Same rewording swept across `04-PHASED-DELIVERABLE-PLAN.md`; `09-SECURITY-REQUIREMENTS.md` SEC-13 supply-chain bullet generalized to broaden the control. Three new glossary entries (content type, migration script, parity).
+
+### Why this revision
+
+User feedback simulating an adversarial manager: the previous exec summary had sections on *what the site will look like* (§2), *what changes for residents* (§4), *what changes for staff* (§5), and *when things happen* (§6 timeline). What was missing was the narrative of *what the work actually is* — the step-by-step process an adversarial reader needs in order to quote it back to their own stakeholders. Secondary direction from the user: leadership-facing planning documents should stand on verifiable, project-specific factors (track record, reused tooling like `hub-migration-tools`, completed planning) rather than industry-wide methodology framing that can invite tangential debate the documents cannot resolve here. The planning set was swept for consistency with this principle.
+
+### Added
+
+- `docs/01-EXECUTIVE-SUMMARY.md` §6 — new section titled "What the work actually is" (~900 words). Opens with the sequencing gate: *the database is migrated first; parity with the old site is confirmed; content-type definitions are adjusted if needed; only then does the visible site get built out section by section.* Acknowledges that some design-system and scaffolding work runs in parallel with the database migration (so the timeline tables in §7 do not look contradictory), but emphasizes that no section is lit up with real content until parity passes. Six subsections: (6.1) current site stays up throughout; (6.2) new publishing tool built alongside the old one on fresh infrastructure; (6.3) content migrated, parity verified, content types adjusted if needed — the critical gate; (6.4) visible website built section by section with real content (homepage → news → events → grants → research → about); (6.5) testing with real people (accessibility reviewer + author UAT); (6.6) cutover is a 2-hour event, old site stays on standby for 30 days.
+- `docs/01-EXECUTIVE-SUMMARY.md` §2 — first-draft homepage render (PNG from `ui/`) embedded at the top of the section with a dark-mode / light-mode / draft caption. Gives §2's visual claims something concrete to point at. Caption pre-empts three predictable questions: "why so dark?" (answered: system preference respected, light mode exists), accessibility worry (answered: light mode is part of the same design system), and "is this settled?" (answered: first draft, may evolve).
+- `docs/01-EXECUTIVE-SUMMARY.md` §11 glossary — three new entries: "Content type," "Migration script," and "Parity (content parity)." These are the artifacts and concepts the new §6 introduces. Each is also glossed inline in the body.
+
+### Changed
+
+- `docs/01-EXECUTIVE-SUMMARY.md` §7 (formerly §6) — third timeline-compression bullet replaced. Previously attributed project speed to industry methodology; now attributes it to the developer's demonstrable track record on the same technology stack (Chris Schweda: 25+ years at ICJIA, 15+ Vue / JavaScript / TypeScript sites, built the current ICJIA site in 2020). Concrete, verifiable, project-specific — stands on the record rather than on framing that can date or invite tangential debate. Corresponding glossary entry removed; the defined term no longer appears anywhere in the document body.
+- `docs/01-EXECUTIVE-SUMMARY.md` — sections 6 through 11 renumbered to 7 through 12 to make room for the new §6. Self-reference in the document intro updated from "(§10)" to "(§11)."
+- `docs/01-EXECUTIVE-SUMMARY.md` frontmatter — v2.1 → v2.2.
+- `docs/04-PHASED-DELIVERABLE-PLAN.md` §2 — third compression-factor bullet reworded with the same developer-stack-familiarity framing used in the exec summary. Keeps the four concrete targets of the work (page templates, CMS integration code, data-migration scaffolding, component implementation); attributes the compression to experience with those patterns on prior projects. Frontmatter v0.1 → v0.2.
+- `docs/09-SECURITY-REQUIREMENTS.md` SEC-13 — supply-chain review bullet generalized. Previously scoped to a specific authoring method; now covers every new external package import (any fresh `import` or `require` of a third-party library). This is a **strict broadening of the security control** — all new dependencies now get human review for typosquatting, regardless of how the code was drafted. No weakening of security posture. Frontmatter v0.1 → v0.2.
+
+### Not changed
+
+- Timeline tables in `01-EXECUTIVE-SUMMARY.md` §7 (formerly §6) — day ranges and durations identical. The new §6 describes the same work in narrative form; the tables remain the operational reference.
+- Other planning documents (`02-MASTER-DESIGN-PLAN.md`, `03-STRAPI-UPGRADE-PLAN.md`, `05-DESIGN-SYSTEM.md`, `06-ACCESSIBILITY-STRATEGY.md`, `07-OPEN-QUESTIONS.md`, `08-STRAPI-MIGRATION-RUNBOOK.md`) — no references requiring rework in this pass; left untouched.
+- Two-track plan content in `04-PHASED-DELIVERABLE-PLAN.md` (phase entry/exit criteria, critical path, risk flags) — unchanged. Only the §2 compression-factor bullet was edited.
+- Security practice in `09-SECURITY-REQUIREMENTS.md` — SEC-13's human-review control is now strictly broader in scope, not weaker.
+- Historical `CHANGELOG.md` entries (0.10.1 and earlier) — left intact per convention; the changelog is an append-only audit trail of decisions as they were made.
+
+---
+
 ## [0.10.1] — 2026-04-24
 
 Presentation-only update in the executive summary: the §6 Mermaid Gantt chart is replaced by two tables (one per track), so non-technical readers can synthesize the schedule without relying on the Gantt visual.
