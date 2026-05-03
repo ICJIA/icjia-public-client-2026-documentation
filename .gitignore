@@ -19,3 +19,7 @@ dist/
 
 # Logs
 *.log
+
+# Local-only reference dumps (e.g. gitingest-style directory dumps of external repos)
+docs/icjia-icjia-migration-tools-*.txt
+

@@ -9,6 +9,21 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Pre-1.0 
 
 ---
 
+## [0.12.1] — 2026-05-03
+
+Repository-hygiene patch: untrack the migration-tools repo dump (`docs/icjia-icjia-migration-tools-*.txt`) and add a `.gitignore` rule so the pattern doesn't return. The file remains in the working tree as a local-only reference; it is no longer in git history going forward.
+
+### Why
+
+The dump was committed in 0.12.0 as evidence under the "Repository hygiene" section. On reflection it doesn't need to be in this planning repo — `icjia-migration-tools` is the canonical source, the SHA is in the filename for traceability, and a 38k-line dump introduces diff churn if it's ever regenerated.
+
+### Changed
+
+- `.gitignore` — added `docs/icjia-icjia-migration-tools-*.txt` under a new "Local-only reference dumps" section.
+- `docs/icjia-icjia-migration-tools-8a5edab282632443.txt` — removed from tracking (`git rm --cached`); local file preserved.
+
+---
+
 ## [0.12.0] — 2026-05-03
 
 Major reframing across the planning set to reflect three structural changes to the project as understood today: (1) the **Strapi 3 → 5 backend migration is complete** and the tool that did it is at [`ICJIA/icjia-migration-tools`](https://github.com/ICJIA/icjia-migration-tools); (2) the **Research Hub is being separated** out of the public-site bundle into its own dedicated project on its own infrastructure, with hub URLs preserved for SEO continuity; (3) the public-site rebuild is therefore meaningfully **lighter in scope** than a like-for-like rebuild of today's bundled site would have been. The executive summary is rewritten end-to-end for non-technical leadership; supporting documents pick up status flips and cross-references. "Residents" reworded to "users" throughout for the agency's global reach. First-draft homepage render removed from README and exec summary.
